@@ -46,6 +46,7 @@ class Task extends Equatable {
   List<Object?> get props => [title, icon, color];
 }
 
+//n
 
 ///This is the file for my model i.e how the content of the to-do list will be
 ///A to-do list is made up of 4 parameters

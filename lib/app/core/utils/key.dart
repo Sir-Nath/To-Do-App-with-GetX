@@ -1,1 +1,2 @@
-const  taskKey = 'task'; 
+const  taskKey = 'task';
+const anotherKey = 'taskTwo';
