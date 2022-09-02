@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:to_do_app/app/core/utils/extension.dart';
 import 'package:to_do_app/app/modules/home/controller.dart';
@@ -22,6 +23,8 @@ class AddDialog extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       Get.back();
+                      homeCtrl.editController.clear();
+                      homeCtrl.changeTask(null);
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -29,7 +32,26 @@ class AddDialog extends StatelessWidget {
                       style: ButtonStyle(
                           overlayColor:
                               MaterialStateProperty.all(Colors.transparent)),
-                      onPressed: () {},
+                      onPressed: () {
+                        if(homeCtrl.formKey.currentState!.validate()){
+                          if(homeCtrl.task.value == null){
+                            EasyLoading.showError('please select task type');
+                          } else{
+                            bool success = homeCtrl.updateTask(
+                               homeCtrl.task.value!,
+                              homeCtrl.editController.text,
+                            );
+                            if(success){
+                              EasyLoading.showSuccess('Todo item add success');
+                              Get.back();
+                              homeCtrl.changeTask(null);
+                            }else{
+                              EasyLoading.showError('Todo item already exist');
+                            }
+                            homeCtrl.editController.clear();
+                          }
+                        }
+                      },
                       child: Text(
                         'Done',
                         style: TextStyle(fontSize: 14.0.sp),
@@ -80,17 +102,21 @@ class AddDialog extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            IconData(element.icon, fontFamily: 'MaterialIcons'),
-                            color: HexColor.fromHex(element.color),
-                          ),
-                          SizedBox(
-                            width: 3.0.wp,
-                          ),
-                          Text(
-                            element.title,
-                            style: TextStyle(
-                                fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+                          Row(
+                            children: [
+                              Icon(
+                                IconData(element.icon, fontFamily: 'MaterialIcons'),
+                                color: HexColor.fromHex(element.color),
+                              ),
+                              SizedBox(
+                                width: 3.0.wp,
+                              ),
+                              Text(
+                                element.title,
+                                style: TextStyle(
+                                    fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+                              ),
+                            ]
                           ),
                           if (homeCtrl.task.value == element)
                             const Icon(
