@@ -8,7 +8,7 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(
-      () => HomeController(
+      () => HomeController( // injecting my HomeController lazily
         taskRepository: TaskRepository(
           taskProvider: TaskProvider(),
         ),

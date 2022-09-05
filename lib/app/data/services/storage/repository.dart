@@ -6,7 +6,7 @@ class TaskRepository {
   TaskRepository({
     required this.taskProvider
 });
-  List<Task> readTasks(){
+  List<Task> readTasks(){ //this is us repeating the code from the provider but in a much simpler way
     return taskProvider.readTasks();
   }
 

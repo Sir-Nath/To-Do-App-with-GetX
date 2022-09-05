@@ -8,14 +8,15 @@ class TaskProvider{
   final StorageService _storage = Get.find<StorageService>();
 
   List<Task> readTasks(){
-    var tasks = <Task>[];
-    jsonDecode(_storage.read(taskKey).toString()).forEach((e){
+    var tasks = <Task>[]; // we create an empty list
+    jsonDecode(_storage.read(taskKey).toString()).forEach((e){ //read from our storage with the saved key, we return our saved object which we will use the
+      //toString method on and decode it after which for each element we get, we add it to the created list after converting it to a Task model
       return tasks.add(Task.fromJson(e));
     });
-    return tasks;
+    return tasks; //we return our filled list
   }
 
-  void writeTask(List<Task> tasks){
+  void writeTask(List<Task> tasks){ // our actual writeTask method will take a list of Task and encode it in json together with a taskKey and save it
     _storage.write(taskKey, jsonEncode(tasks));
   }
 }

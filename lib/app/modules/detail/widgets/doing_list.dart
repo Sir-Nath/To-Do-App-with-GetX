@@ -71,7 +71,6 @@ class DoingList extends StatelessWidget {
                   )
               ],
             )
-
     );
   }
 }

@@ -1,25 +1,20 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:to_do_app/app/core/utils/extension.dart';
 import 'package:to_do_app/app/modules/detail/view.dart';
 import 'package:to_do_app/app/modules/home/controller.dart';
-import '../../../core/values/colors.dart';
 import '../../../data/models/task.dart';
 
 class TaskCard extends StatelessWidget {
-  final homeCtrl = Get.find<HomeController>();
-  final Task task;
+  final homeCtrl = Get.find<HomeController>(); // we find our HomeController
+  final Task task; //call for Task
   TaskCard({Key? key, required this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var squareWidth = Get.width - 12.0.wp;
     final color = HexColor.fromHex(task.color);
-    //log(blue.toHex());
-    //log(color.toString());
     return GestureDetector(
       onTap: () {
         homeCtrl.changeTask(task);
@@ -42,9 +37,8 @@ class TaskCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             StepProgressIndicator(
-              //TODO change after todo CRUD
-              totalSteps: 5,
-              currentStep: 3,
+              totalSteps: homeCtrl.isTodoEmpty(task) ? 1 : task.todos!.length,
+              currentStep: homeCtrl.isTodoEmpty(task) ? 0 : homeCtrl.getDoneTodo(task),
               size: 5,
               padding: 0,
               selectedGradientColor: LinearGradient(
