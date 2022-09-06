@@ -5,8 +5,7 @@ import 'package:to_do_app/app/data/services/storage/repository.dart';
 import '../../data/models/task.dart';
 
 class HomeController extends GetxController {
-  TaskRepository
-      taskRepository; // our controller need to be in contact with our repo
+  TaskRepository taskRepository; // our controller need to be in contact with our repo
   HomeController({required this.taskRepository});
   final formKey = GlobalKey<FormState>();
   final editController = TextEditingController();

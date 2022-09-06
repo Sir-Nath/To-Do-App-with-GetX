@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:to_do_app/app/core/utils/extension.dart';
+import 'package:to_do_app/app/core/values/colors.dart';
 import 'package:to_do_app/app/modules/home/controller.dart';
 class ReportPage extends StatelessWidget {
   final homeCtrl = Get.find<HomeController>();
@@ -68,6 +69,48 @@ class ReportPage extends StatelessWidget {
                       Colors.blue, createdTasks, 'Created'
                      )
                   ],),
+                ),
+                SizedBox(height: 8.0.wp,),
+                UnconstrainedBox(
+                  child: SizedBox(
+                    width: 70.0.wp,
+                    height: 70.0.wp,
+                    child: CircularStepProgressIndicator(
+                    totalSteps: createdTasks == 0 ? 1 : createdTasks,
+                    currentStep: completedTasks,
+                    stepSize: 20,
+                    selectedColor: green,
+                    unselectedColor: Colors.grey[200],
+                    padding: 0,
+                    width: 150,
+                    height: 150,
+                    selectedStepSize: 22,
+                    roundedCap: (_, __) => true,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${createdTasks == 0 ? 0 : percent} %',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0.sp,
+                          )
+                        ),
+                        SizedBox(
+                          height: 1.0.wp
+                        ),
+                        Text(
+                          'Efficiency',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.0.sp
+                          )
+                        )
+                      ]
+                    )
+                    )
+                  ),
                 )
               ],
             );
