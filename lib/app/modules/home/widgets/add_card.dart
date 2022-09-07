@@ -9,12 +9,12 @@ import '../../../data/models/task.dart';
 import '../controller.dart';
 
 class AddCard extends StatelessWidget {
-  final homeCtrl = Get.find<HomeController>();
+  final homeCtrl = Get.find<HomeController>(); //we use this to find the controller
   AddCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final icons = getIcons();
+    final icons = getIcons(); //this is a list of Icons
     var squareWidth = Get.width - 12.0.wp;
     return Container(
         width: squareWidth / 2,
@@ -22,12 +22,13 @@ class AddCard extends StatelessWidget {
         margin: EdgeInsets.all(3.0.wp),
         child: InkWell(
             onTap: () async {
+              //this is the default Dialog that comes with GetX
               await Get.defaultDialog(
                 titlePadding: EdgeInsets.symmetric(vertical: 5.0.wp),
                 title: 'Task Type',
                 radius: 5,
                 content: Form(
-                  key: homeCtrl.formKey,
+                  key: homeCtrl.formKey,//this allow us keep trade of our form state like validation
                   child: Column(
                     children: [
                       Padding(
@@ -38,8 +39,8 @@ class AddCard extends StatelessWidget {
                             border: OutlineInputBorder(),
                             labelText: 'Title',
                           ),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
+                          validator: (value) {// we validate the input 
+                            if (value == null || value.trim().isEmpty) { //if we don't meet this validation criteria then we pop the error message below
                               return 'Please enter your task title';
                             }
                             return null;
@@ -60,12 +61,12 @@ class AddCard extends StatelessWidget {
                                       selectedColor: Colors.grey[200],
                                       pressElevation: 0,
                                       backgroundColor: Colors.white,
-                                      label: e,
+                                      label: e, //our label here is an icon
                                       selected:
-                                          homeCtrl.chipIndex.value == index,
+                                          homeCtrl.chipIndex.value == index, //returns true if the selected index is same as the chipIndex valu from our controller
                                       onSelected: (bool selected) {
                                         homeCtrl.chipIndex.value =
-                                            selected ? index : 0;
+                                            selected ? index : 0; //on selected being true the index of the selected will be highlighted
                                       },
                                     );
                                   },
@@ -104,9 +105,9 @@ class AddCard extends StatelessWidget {
                 ),
               );
               homeCtrl.editController.clear();
-              homeCtrl.changeChipIndex(0);
+              homeCtrl.changeChipIndex(0); // we use this to reset our Choice chip index
             },
-            child: DottedBorder(
+            child: DottedBorder( //this is a package for creating dotted border
               color: Colors.grey[400]!,
               dashPattern: const [8, 4],
               child: Center(

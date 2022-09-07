@@ -29,8 +29,8 @@ class DetailPage extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       Get.back();
-                      homeCtrl.updateTodos();
-                      homeCtrl.changeTask(null);
+                      homeCtrl.updateTodos(); //we update our note on going back
+                      homeCtrl.changeTask(null); 
                       homeCtrl.editController.clear();
                     },
                     icon: const Icon(Icons.arrow_back),

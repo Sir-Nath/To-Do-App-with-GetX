@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,12 +7,15 @@ import 'package:to_do_app/app/data/services/storage/repository.dart';
 import '../../data/models/task.dart';
 
 class HomeController extends GetxController {
+
   TaskRepository taskRepository; // our controller need to be in contact with our repo
   HomeController({required this.taskRepository});
   final formKey = GlobalKey<FormState>();
   final editController = TextEditingController();
-  final tabIndex = 0.obs;
-  final chipIndex = 0.obs;
+
+//.obs is added to all the values that needs to be observed
+  final tabIndex = 0.obs; //this is the index for the IndexStacked widget
+  final chipIndex = 0.obs; //this is the default index for our chips
   final deleting = false.obs;
   final tasks = <Task>[].obs;
   final task = Rx<Task?>(null);
@@ -20,8 +25,12 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    tasks.assignAll(taskRepository.readTasks());
-    ever(tasks, (_) => taskRepository.writeTasks(tasks));
+    tasks.assignAll(taskRepository.readTasks()); //.assignAll assign all the items from taskRepository.readTask into tasks
+    log('before entering ever'); 
+    ever(tasks, (_){
+      log('before writing task in ever');
+      taskRepository.writeTasks(tasks);
+    });//ever performs a function whenever tasks changes
   }
 
   @override
@@ -31,22 +40,23 @@ class HomeController extends GetxController {
   }
 
   void changeChipIndex(int value) {
-    chipIndex.value = value;
+    chipIndex.value = value; //this method takes a value and assign it to the observable chipIndex
   }
 
-  bool addTask(Task task) {
-    if (tasks.contains(task)) {
+  bool addTask(Task task) { //this is a method that is called before adding a single task into our list of task
+    if (tasks.contains(task)) { // we check if our list already have this task and if it does we abort adding with boolean value
       return false;
     }
     tasks.add(task);
     return true;
   }
 
-  void changeDeleting(bool value) {
+//the purpose of this function is to update the deleting variable and use that to perform other function
+  void changeDeleting(bool value) { // this method takes a value and assign it to the observable deleting value
     deleting.value = value;
   }
 
-  void deleteTask(Task task) {
+  void deleteTask(Task task) { //this takes a task of type Task and remove it from the list of tasks
     tasks.remove(task);
   }
 
@@ -141,8 +151,9 @@ class HomeController extends GetxController {
     return res;
   }
 
+//this is the function responsible for changing the Indexstacked index
   void changeTabIndex(int index){
-    tabIndex.value = index;
+    tabIndex.value = index; //we assign the value we receive from the funtion to the tabIndex
   }
 
   int getTotalTask(){
