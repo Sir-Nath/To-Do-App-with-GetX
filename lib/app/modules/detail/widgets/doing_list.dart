@@ -44,7 +44,7 @@ class DoingList extends StatelessWidget {
                           fillColor: MaterialStateProperty.resolveWith((states) => Colors.grey),
                           value: element['done'],
                           onChanged: (value){
-                            homeCtrl.doneTodo(element['title']);
+                            homeCtrl.doneTodo(element['title']); //this is where we add our todo into done
                           },
                         ),
                       ),

@@ -68,7 +68,7 @@ class DetailPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      '${totalTodos}  Tasks',
+                      '$totalTodos  Tasks',
                       style: TextStyle(fontSize: 12.0.sp, color: Colors.grey),
                     ),
                     SizedBox(

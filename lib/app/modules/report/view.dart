@@ -36,7 +36,7 @@ class ReportPage extends StatelessWidget {
                     horizontal: 4.0.wp
                   ),
                   child: Text(
-                    DateFormat.yMMMMd().format(DateTime.now()),
+                    DateFormat.yMMMMd().format(DateTime.now()), //this format ur current date
                     style: TextStyle(
                       fontSize: 14.0.sp,
                       color: Colors.grey

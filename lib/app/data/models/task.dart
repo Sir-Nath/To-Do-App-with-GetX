@@ -4,7 +4,7 @@ class Task extends Equatable {
   final String title;
   final int icon;
   final String color;
-  final List<dynamic>? todos;
+  final List<Map<String, dynamic>>? todos;
 
   const Task(
       {required this.color,
@@ -16,7 +16,7 @@ class Task extends Equatable {
     String? title,
     int? icon,
     String? color,
-    List<dynamic>? todos,
+    List<Map<String, dynamic>>? todos,
   }) {
     return Task(
         title: title ?? this.title,

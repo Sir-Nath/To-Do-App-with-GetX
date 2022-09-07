@@ -36,7 +36,7 @@ class AddDialog extends StatelessWidget {
                                 MaterialStateProperty.all(Colors.transparent)),
                         onPressed: () {
                           if(homeCtrl.formKey.currentState!.validate()){
-                            if(homeCtrl.task.value == null){
+                            if(homeCtrl.task.value == null){ //if we select a task then this shouldn't be  null
                               EasyLoading.showError('please select task type');
                             } else{
                               bool success = homeCtrl.updateTask(
